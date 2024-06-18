@@ -4,7 +4,7 @@ import { styles } from './styles';
 export default function Dashboard() {
   return (
     <View style={styles.container}>
-      <Text> Dashboard </Text>
+      <Text style={styles.title}> Dashboard </Text>
     </View>
   );
 }

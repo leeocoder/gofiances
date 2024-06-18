@@ -1,4 +1,4 @@
-export default {
+export const theme = {
   colors: {
     primary: '#5636D3',
     secondary: '#FF872C',
@@ -11,5 +11,10 @@ export default {
     title: '#363F5F',
     text: '#9C9Cb2',
     background: '#F0F2F5',
+  },
+  fonts: {
+    regular: 'Poppins_400Regular',
+    medium: 'Poppins_500Medium',
+    bold: 'Poppins_700Bold',
   }
 }
