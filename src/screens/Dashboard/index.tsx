@@ -1,7 +1,8 @@
-import { Image, View, Text } from 'react-native';
+import { Image, View, Text, ScrollView } from 'react-native';
 import { styles } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../../global/styles/theme';
+import TransactionCard from '../../components/TransactionCard';
 
 export default function Dashboard() {
   return (
@@ -26,6 +27,17 @@ export default function Dashboard() {
             color={theme.colors.secondary}
           />
         </View>
+      </View>
+      <View style={styles.transactionCardsWrapper}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.transactionCards}
+        >
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+        </ScrollView>
       </View>
     </View>
   );
