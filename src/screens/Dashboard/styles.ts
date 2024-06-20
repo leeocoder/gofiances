@@ -55,4 +55,16 @@ export const styles = StyleSheet.create({
     gap: RFValue(16),
     paddingHorizontal: RFValue(24),
   },
+  transactions: {
+    flex: 1,
+    paddingHorizontal: RFValue(24),
+    marginTop: RFPercentage(12),
+  },
+  transactionsTitle: {
+    fontSize: RFValue(18),
+    fontFamily: theme.fonts.regular,
+    color: theme.colors.title,
+    lineHeight: RFValue(24),
+    marginBottom: RFValue(16),
+  },
 });

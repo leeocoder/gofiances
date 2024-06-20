@@ -6,6 +6,7 @@ import TransactionCard from '../../components/TransactionCard';
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
 import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
+import TransactionItem from '../../components/TransactionItem';
 
 export default function Dashboard() {
   return (
@@ -56,6 +57,10 @@ export default function Dashboard() {
           type={TransactionTypeEnum.total}
         />
       </ScrollView>
+      <View style={styles.transactions}>
+        <Text style={styles.transactionsTitle}>Listagem</Text>
+        <TransactionItem />
+      </View>
     </View>
   );
 }
