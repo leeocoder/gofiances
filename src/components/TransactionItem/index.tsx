@@ -10,14 +10,20 @@ interface Category {
   icon: string;
 }
 
-interface Props {
+interface TransactionData {
   title: string;
   amount: string;
   category: Category;
   transactionDate: string;
 }
 
-function TransactionItem({ title, amount, category, transactionDate }: Props) {
+interface Props {
+  data: TransactionData;
+}
+
+function TransactionItem({
+  data: { title, amount, category, transactionDate },
+}: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>

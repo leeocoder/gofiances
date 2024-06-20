@@ -9,6 +9,20 @@ import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
 import TransactionItem from '../../components/TransactionItem';
 
 export default function Dashboard() {
+  const data = [
+    {
+      title: 'Desenvolvimento de site',
+      transactionDate: '13/04/2020',
+      amount: 'R$ 12.000,00',
+      category: { key: 'shop', icon: 'dollar-sign', name: 'Vendas' },
+    },
+    {
+      title: 'Hamburgueria Pizzy',
+      transactionDate: '10/04/2020',
+      amount: '- R$ 59,00',
+      category: { key: 'shop', icon: 'coffee', name: 'Vendas' },
+    },
+  ];
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -59,12 +73,7 @@ export default function Dashboard() {
       </ScrollView>
       <View style={styles.transactions}>
         <Text style={styles.transactionsTitle}>Listagem</Text>
-        <TransactionItem
-          title='Desenvolvimento de Site'
-          transactionDate='13/04/2020'
-          amount='12.000,00'
-          category={{ key: 'shop', icon: 'dollar-sign', name: 'Vendas' }}
-        />
+        <TransactionItem data={data[0]} />
       </View>
     </View>
   );
