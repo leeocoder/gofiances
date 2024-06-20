@@ -6,6 +6,7 @@ import Input from '../../components/Form/Input';
 import Button from '../../components/Form/Button';
 import TransactionTypeButton from '../../components/Form/TransactionTypeButton';
 import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
+import CategorySelect from '../../components/Form/CategorySelect';
 
 export default function Register() {
   const [selectedTypeTransaction, setSelectedTypeTransaction] =
@@ -46,6 +47,7 @@ export default function Register() {
               }
             />
           </View>
+          <CategorySelect label='Categoria' />
         </View>
         <Button labelButton='Enviar' />
       </View>
