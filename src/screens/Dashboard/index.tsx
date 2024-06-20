@@ -1,26 +1,104 @@
 import { Feather } from '@expo/vector-icons';
 
-import { Image, ScrollView, Text, View } from 'react-native';
+import { FlatList, Image, ScrollView, Text, View } from 'react-native';
 
 import TransactionCard from '../../components/TransactionCard';
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
 import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
-import TransactionItem from '../../components/TransactionItem';
+import TransactionItem, {
+  TransactionData,
+} from '../../components/TransactionItem';
+
+interface TransactionCardsList extends TransactionData {
+  id: number;
+}
 
 export default function Dashboard() {
-  const data = [
+  const data: TransactionCardsList[] = [
     {
+      id: 1,
       title: 'Desenvolvimento de site',
       transactionDate: '13/04/2020',
       amount: 'R$ 12.000,00',
-      category: { key: 'shop', icon: 'dollar-sign', name: 'Vendas' },
+      category: { key: 'dollar-sign', icon: 'shopping-bag', name: 'Vendas' },
+      transactionType: TransactionTypeEnum.income,
     },
     {
+      id: 2,
       title: 'Hamburgueria Pizzy',
       transactionDate: '10/04/2020',
-      amount: '- R$ 59,00',
-      category: { key: 'shop', icon: 'coffee', name: 'Vendas' },
+      amount: 'R$ 59,00',
+      category: { key: 'coffee', icon: 'coffee', name: 'Alimentação' },
+      transactionType: TransactionTypeEnum.outcome,
+    },
+    {
+      id: 3,
+      title: 'Consultoria de Marketing',
+      transactionDate: '05/05/2020',
+      amount: 'R$ 7.500,00',
+      category: { key: 'briefcase', icon: 'briefcase', name: 'Consultoria' },
+      transactionType: TransactionTypeEnum.income,
+    },
+    {
+      id: 4,
+      title: 'Compra de Suprimentos de Escritório',
+      transactionDate: '20/04/2020',
+      amount: 'R$ 980,00',
+      category: { key: 'archive', icon: 'archive', name: 'Escritório' },
+      transactionType: TransactionTypeEnum.outcome,
+    },
+    {
+      id: 5,
+      title: 'Pagamento de Salários',
+      transactionDate: '30/04/2020',
+      amount: 'R$ 15.000,00',
+      category: { key: 'credit-card', icon: 'credit-card', name: 'Salários' },
+      transactionType: TransactionTypeEnum.outcome,
+    },
+    {
+      id: 6,
+      title: 'Recebimento de Cliente X',
+      transactionDate: '15/05/2020',
+      amount: 'R$ 3.200,00',
+      category: { key: 'users', icon: 'users', name: 'Clientes' },
+      transactionType: TransactionTypeEnum.income,
+    },
+    {
+      id: 7,
+      title: 'Supermercado - Compra Mensal',
+      transactionDate: '25/05/2020',
+      amount: 'R$ 750,00',
+      category: {
+        key: 'shopping-cart',
+        icon: 'shopping-cart',
+        name: 'Supermercado',
+      },
+      transactionType: TransactionTypeEnum.outcome,
+    },
+    {
+      id: 8,
+      title: 'Venda de Produtos Artesanais',
+      transactionDate: '02/06/2020',
+      amount: 'R$ 1.200,00',
+      category: { key: 'palette', icon: 'dollar-sign', name: 'Artesanato' },
+      transactionType: TransactionTypeEnum.income,
+    },
+    {
+      id: 9,
+      title: 'Pagamento de Conta de Luz',
+      transactionDate: '18/06/2020',
+      amount: 'R$ 180,00',
+      category: { key: 'zap', icon: 'zap', name: 'Contas' },
+      transactionType: TransactionTypeEnum.outcome,
+    },
+    {
+      id: 10,
+      title: 'Aluguel do Mês',
+      transactionDate: '05/06/2020',
+      amount: 'R$ 2.000,00',
+      category: { key: 'home', icon: 'home', name: 'Aluguel' },
+      transactionType: TransactionTypeEnum.outcome,
     },
   ];
   return (
@@ -73,7 +151,13 @@ export default function Dashboard() {
       </ScrollView>
       <View style={styles.transactions}>
         <Text style={styles.transactionsTitle}>Listagem</Text>
-        <TransactionItem data={data[0]} />
+        <FlatList
+          data={data}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <TransactionItem data={item} />}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.transactionsList}
+        />
       </View>
     </View>
   );

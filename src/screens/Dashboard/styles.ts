@@ -67,4 +67,7 @@ export const styles = StyleSheet.create({
     lineHeight: RFValue(24),
     marginBottom: RFValue(16),
   },
+  transactionsList: {
+    rowGap: 16,
+  },
 });
