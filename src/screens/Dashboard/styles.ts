@@ -15,10 +15,9 @@ export const styles = StyleSheet.create({
   userWrapper: {
     width: '100%',
     paddingHorizontal: 24,
-    marginTop: RFValue(42),
+    marginTop: RFValue(50),
     flexDirection: 'row',
     alignItems: 'center',
-    zIndex: -1,
     justifyContent: 'space-between',
   },
   userInfo: {
@@ -49,14 +48,11 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
   },
   transactionCardsWrapper: {
-    flex: 1,
+    position: 'absolute',
+    marginTop: RFPercentage(20),
   },
   transactionCards: {
     gap: RFValue(16),
     paddingHorizontal: RFValue(24),
-    width: '100%',
-    top: -120,
-    position: 'absolute',
-    zIndex: 10000
   },
 });
