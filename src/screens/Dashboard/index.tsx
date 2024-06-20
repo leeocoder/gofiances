@@ -59,7 +59,12 @@ export default function Dashboard() {
       </ScrollView>
       <View style={styles.transactions}>
         <Text style={styles.transactionsTitle}>Listagem</Text>
-        <TransactionItem />
+        <TransactionItem
+          title='Desenvolvimento de Site'
+          transactionDate='13/04/2020'
+          amount='12.000,00'
+          category={{ key: 'shop', icon: 'dollar-sign', name: 'Vendas' }}
+        />
       </View>
     </View>
   );
