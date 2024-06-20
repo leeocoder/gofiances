@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 
 import { styles } from './styles';
 import Input from '../../components/Form/Input';
+import Button from '../../components/Form/Button';
 
 export default function Register() {
   return (
@@ -10,9 +11,11 @@ export default function Register() {
         <Text style={styles.title}>Cadastro</Text>
       </View>
       <View style={styles.form}>
-        <Input placeholder='Nome' />
-        <Input placeholder='Email' />
-        <Input placeholder='Senha' />
+        <View style={styles.fields}>
+          <Input placeholder='Nome' />
+          <Input placeholder='Email' />
+        </View>
+        <Button labelButton='Enviar' />
       </View>
     </View>
   );

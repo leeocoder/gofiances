@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
+    paddingBottom: RFValue(25),
   },
   header: {
     backgroundColor: theme.colors.primary,
@@ -24,8 +25,11 @@ export const styles = StyleSheet.create({
   form: {
     flex: 1,
     width: '100%',
-    rowGap: 16,
+    justifyContent: 'space-between',
     paddingHorizontal: RFValue(24),
     paddingTop: RFValue(24),
+  },
+  fields: {
+    rowGap: 16,
   },
 });
