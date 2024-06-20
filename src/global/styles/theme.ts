@@ -6,7 +6,7 @@ export const theme = {
     success: '#12A454',
     successLight: 'rgba(18, 164, 84, .3)',
     attention: '#E83F5b',
-    attentionLight: 'rgba(232, 63, 91, 0.5)',
+    attentionLight: 'rgba(232, 63, 91, 0.3)',
     shape: '#fff',
     title: '#363F5F',
     text: '#9C9Cb2',
@@ -16,5 +16,5 @@ export const theme = {
     regular: 'Poppins_400Regular',
     medium: 'Poppins_500Medium',
     bold: 'Poppins_700Bold',
-  }
-}
+  },
+};

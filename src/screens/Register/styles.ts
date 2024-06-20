@@ -29,6 +29,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: RFValue(24),
     paddingTop: RFValue(24),
   },
+  transactionTypes: {
+    flexDirection: 'row',
+    gap: 16,
+  },
   fields: {
     rowGap: 16,
   },
