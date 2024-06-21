@@ -50,8 +50,8 @@ export default function App() {
       style={{ flex: 1 }}
       onLayout={onLayoutRootView}
     >
-      {/* <Dashboard /> */}
-      <Register />
+      <Dashboard />
+      {/* <Register /> */}
     </View>
   );
 }
