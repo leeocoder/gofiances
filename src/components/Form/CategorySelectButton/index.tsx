@@ -1,18 +1,19 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 import { styles } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../../../global/styles/theme';
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   label: string;
 }
 
-export default function CategorySelect({ label }: Props) {
+export default function CategorySelectButton({ label, ...rest }: Props) {
   return (
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.5}
+      {...rest}
     >
       <Text style={styles.label}>{label}</Text>
       <Feather

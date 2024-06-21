@@ -1,16 +1,21 @@
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Modal } from 'react-native';
 
 import { styles } from './styles';
 import Input from '../../components/Form/Input';
 import Button from '../../components/Form/Button';
 import TransactionTypeButton from '../../components/Form/TransactionTypeButton';
 import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
-import CategorySelect from '../../components/Form/CategorySelect';
+import CategorySelectButton from '../../components/Form/CategorySelectButton';
+import CategorySelectModal from '../CategorySelectModal';
+import { CategoryInterface } from '../../interfaces/category.interface';
 
 export default function Register() {
   const [selectedTypeTransaction, setSelectedTypeTransaction] =
     useState<TransactionTypeEnum | null>(null);
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [category, setCategory] = useState<CategoryInterface | null>(null);
 
   function handleSelectedTypeTransaction(type: TransactionTypeEnum) {
     setSelectedTypeTransaction(type);
@@ -18,6 +23,10 @@ export default function Register() {
 
   function isActive(type: TransactionTypeEnum): boolean {
     return type === selectedTypeTransaction;
+  }
+
+  function handleSetIsModalOpen() {
+    setIsModalOpen(!isModalOpen);
   }
 
   return (
@@ -47,10 +56,20 @@ export default function Register() {
               }
             />
           </View>
-          <CategorySelect label='Categoria' />
+          <CategorySelectButton
+            label={category?.name ?? 'Categoria'}
+            onPress={handleSetIsModalOpen}
+          />
         </View>
         <Button labelButton='Enviar' />
       </View>
+      <Modal visible={isModalOpen}>
+        <CategorySelectModal
+          category={category}
+          setCategory={setCategory}
+          closeSelectCategory={handleSetIsModalOpen}
+        />
+      </Modal>
     </View>
   );
 }

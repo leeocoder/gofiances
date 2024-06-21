@@ -10,6 +10,7 @@ import {
 } from '@expo-google-fonts/poppins';
 import Dashboard from './src/screens/Dashboard';
 import Register from './src/screens/Register';
+import CategorySelectModal from './src/screens/CategorySelectModal';
 
 SplashScreen.preventAutoHideAsync();
 
