@@ -3,14 +3,14 @@ import { View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 
+import { NavigationContainer } from '@react-navigation/native';
 import {
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 import Dashboard from './src/screens/Dashboard';
-import Register from './src/screens/Register';
-import CategorySelectModal from './src/screens/CategorySelectModal';
+import { AppRoutes } from './src/routes/app.routes';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,8 +50,9 @@ export default function App() {
       style={{ flex: 1 }}
       onLayout={onLayoutRootView}
     >
-      <Dashboard />
-      {/* <Register /> */}
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </View>
   );
 }
