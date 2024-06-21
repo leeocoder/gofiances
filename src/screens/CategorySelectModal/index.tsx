@@ -58,12 +58,9 @@ export default function CategorySelectModal({
         )}
       />
       <View style={styles.footer}>
-        <RectButton onPress={() => console.log('hes')}>
-          <Text>Aoo</Text>
-        </RectButton>
         <Button
           labelButton='Selecionar'
-          onPress={() => console.log('log')}
+          onPress={closeSelectCategory}
         />
       </View>
     </View>

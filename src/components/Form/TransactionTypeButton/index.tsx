@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './styles';
 import { Feather } from '@expo/vector-icons';
@@ -45,7 +45,6 @@ export default function TransactionTypeButton({
 
   return (
     <View
-      {...rest}
       style={[
         styles.container,
         {
@@ -54,11 +53,16 @@ export default function TransactionTypeButton({
             : 'transparent',
         },
         {
-          borderWidth: isActive ? 0 : styles.container.borderWidth,
+          borderColor: isActive
+            ? setSelectedBgColorBasedOnType(type)
+            : styles.container.borderColor,
         },
       ]}
     >
-      <RectButton style={styles.buttonWrapper}>
+      <RectButton
+        {...rest}
+        style={styles.buttonWrapper}
+      >
         <Feather
           name={setIconBasedOnType(type) as any}
           size={RFValue(20)}

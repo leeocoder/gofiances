@@ -23,7 +23,7 @@ import InputForm from '../../components/Form/InputForm';
 
 interface FormData {
   name: string;
-  amount: string;
+  amount: number;
 }
 
 const schema = Yup.object().shape({
