@@ -3,6 +3,8 @@ import { Feather } from '@expo/vector-icons';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+import { RectButton } from 'react-native-gesture-handler';
+
 import Button from '../../components/Form/Button';
 import { categories } from '../../global/data/categories.data';
 import { CategoryInterface } from '../../interfaces/category.interface';
@@ -36,7 +38,7 @@ export default function CategorySelectModal({
         ItemSeparatorComponent={() => <View style={styles.separator}></View>}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => setCategory(item)}
+            onPress={() => handleCategorySelect(item)}
             style={[
               styles.category,
               {
@@ -56,9 +58,12 @@ export default function CategorySelectModal({
         )}
       />
       <View style={styles.footer}>
+        <RectButton onPress={() => console.log('hes')}>
+          <Text>Aoo</Text>
+        </RectButton>
         <Button
           labelButton='Selecionar'
-          onPress={closeSelectCategory}
+          onPress={() => console.log('log')}
         />
       </View>
     </View>

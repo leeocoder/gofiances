@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, KeyboardAvoidingView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/Dashboard';
 import Register from '../screens/Register';
@@ -12,9 +12,11 @@ export function AppRoutes() {
   return (
     <Navigator
       screenOptions={({ route }) => ({
+        headerShown: false,
         tabBarActiveTintColor: theme.colors.secondary,
         tabBarActiveBackgroundColor: theme.colors.shape,
         tabBarInactiveTintColor: theme.colors.text,
+        tabBarHideOnKeyboard: true,
         tabBarLabelPosition: 'beside-icon',
         tabBarStyle: {
           // borderRadius: 20,

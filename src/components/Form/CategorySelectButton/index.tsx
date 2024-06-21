@@ -1,16 +1,17 @@
-import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { Text } from 'react-native';
 
 import { styles } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../../../global/styles/theme';
+import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
-interface Props extends TouchableOpacityProps {
+interface Props extends RectButtonProps {
   label: string;
 }
 
 export default function CategorySelectButton({ label, ...rest }: Props) {
   return (
-    <TouchableOpacity
+    <RectButton
       style={styles.container}
       activeOpacity={0.5}
       {...rest}
@@ -21,6 +22,6 @@ export default function CategorySelectButton({ label, ...rest }: Props) {
         size={20}
         color={theme.colors.text}
       />
-    </TouchableOpacity>
+    </RectButton>
   );
 }

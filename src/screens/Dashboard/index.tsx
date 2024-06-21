@@ -1,6 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 
 import { FlatList, Image, ScrollView, Text, View } from 'react-native';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 import TransactionCard from '../../components/TransactionCard';
 import { theme } from '../../global/styles/theme';
@@ -117,11 +118,13 @@ export default function Dashboard() {
               <Text style={styles.username}>Leonardo</Text>
             </View>
           </View>
-          <Feather
-            name='power'
-            size={24}
-            color={theme.colors.secondary}
-          />
+          <BorderlessButton onPress={() => {}}>
+            <Feather
+              name='power'
+              size={24}
+              color={theme.colors.secondary}
+            />
+          </BorderlessButton>
         </View>
       </View>
       <ScrollView

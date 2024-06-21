@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     padding: RFValue(16),
+    overflow: 'hidden',
   },
   label: {
     color: theme.colors.shape,

@@ -10,8 +10,14 @@ export const styles = StyleSheet.create({
     gap: 12,
     borderWidth: 1.5,
     borderColor: theme.colors.text,
-    borderRadius: 5,
     justifyContent: 'center',
+    borderRadius: 5,
+  },
+  buttonWrapper: {
+    gap: 12,
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
     padding: RFValue(16),
   },
   label: {

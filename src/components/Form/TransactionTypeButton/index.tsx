@@ -1,12 +1,13 @@
-import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { styles } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { TransactionTypeEnum } from '../../../global/enums/TransactionTypeEnum';
 import { theme } from '../../../global/styles/theme';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
-interface Props extends TouchableOpacityProps {
+interface Props extends RectButtonProps {
   title: string;
   isActive: boolean;
   type: TransactionTypeEnum;
@@ -43,7 +44,7 @@ export default function TransactionTypeButton({
   };
 
   return (
-    <TouchableOpacity
+    <View
       {...rest}
       style={[
         styles.container,
@@ -57,12 +58,14 @@ export default function TransactionTypeButton({
         },
       ]}
     >
-      <Feather
-        name={setIconBasedOnType(type) as any}
-        size={RFValue(20)}
-        color={setColorBasedOnType(type)}
-      />
-      <Text>{title}</Text>
-    </TouchableOpacity>
+      <RectButton style={styles.buttonWrapper}>
+        <Feather
+          name={setIconBasedOnType(type) as any}
+          size={RFValue(20)}
+          color={setColorBasedOnType(type)}
+        />
+        <Text>{title}</Text>
+      </RectButton>
+    </View>
   );
 }

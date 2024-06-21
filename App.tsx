@@ -1,16 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
-import * as SplashScreen from 'expo-splash-screen';
-import * as Font from 'expo-font';
-
-import { NavigationContainer } from '@react-navigation/native';
 import {
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
-import Dashboard from './src/screens/Dashboard';
+import { NavigationContainer } from '@react-navigation/native';
+
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View } from 'react-native';
+import 'react-native-gesture-handler';
+
 import { AppRoutes } from './src/routes/app.routes';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -46,13 +48,13 @@ export default function App() {
   }
 
   return (
-    <View
+    <GestureHandlerRootView
       style={{ flex: 1 }}
       onLayout={onLayoutRootView}
     >
       <NavigationContainer>
         <AppRoutes />
       </NavigationContainer>
-    </View>
+    </GestureHandlerRootView>
   );
 }
