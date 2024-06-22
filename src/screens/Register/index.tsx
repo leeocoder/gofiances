@@ -1,25 +1,26 @@
-import { useState } from 'react';
-import {
-  Text,
-  View,
-  Modal,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert,
-} from 'react-native';
-import { useForm } from 'react-hook-form';
-
-import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { styles } from './styles';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import {
+  Alert,
+  Keyboard,
+  Modal,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import * as Yup from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import Button from '../../components/Form/Button';
+import CategorySelectButton from '../../components/Form/CategorySelectButton';
+import InputForm from '../../components/Form/InputForm';
 import TransactionTypeButton from '../../components/Form/TransactionTypeButton';
 import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
-import CategorySelectButton from '../../components/Form/CategorySelectButton';
-import CategorySelectModal from '../CategorySelectModal';
 import { CategoryInterface } from '../../interfaces/category.interface';
-import InputForm from '../../components/Form/InputForm';
+import CategorySelectModal from '../CategorySelectModal';
+import { styles } from './styles';
 
 interface FormData {
   name: string;
@@ -37,6 +38,7 @@ const schema = Yup.object().shape({
 });
 
 export default function Register() {
+  const collectionKey: string = '@gofinances:transactions';
   const [selectedTypeTransaction, setSelectedTypeTransaction] =
     useState<TransactionTypeEnum | null>(null);
 
@@ -63,7 +65,7 @@ export default function Register() {
     setIsModalOpen(!isModalOpen);
   }
 
-  function handleRegister(form: FormData) {
+  async function handleRegister(form: FormData) {
     if (!selectedTypeTransaction) {
       Alert.alert('Selecione o tipo da transação');
       return;
@@ -74,14 +76,38 @@ export default function Register() {
       return;
     }
 
-    const data = {
+    const newTransaction = {
       name: form.name,
       amount: form.amount,
       category: category?.key,
       transactionType: selectedTypeTransaction,
     };
-    console.log(data);
+
+    try {
+      const dataStorage = await AsyncStorage.getItem(collectionKey);
+      const currentData = dataStorage ? JSON.parse(dataStorage) : [];
+      const dataFormatted = [
+        {
+          ...newTransaction,
+          id: currentData.length + 1,
+        },
+        ...currentData,
+      ];
+      await AsyncStorage.setItem(collectionKey, JSON.stringify(dataFormatted));
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Não foi possível salvar!, tente novamente');
+    }
   }
+
+  useEffect(() => {
+    async function loadData() {
+      const data = await AsyncStorage.getItem(collectionKey);
+      if (!data) return;
+      console.log(JSON.parse(data));
+    }
+    loadData();
+  });
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
