@@ -1,12 +1,15 @@
 import React from 'react';
-import { Platform, KeyboardAvoidingView } from 'react-native';
+import { Platform, KeyboardAvoidingView, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/Dashboard';
 import Register from '../screens/Register';
 import { theme } from '../global/styles/theme';
 import { Feather } from '@expo/vector-icons';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { BottomTabNavigatorParams } from '../global/enums/navigation.type';
 
-const { Navigator, Screen } = createBottomTabNavigator();
+const { Navigator, Screen } =
+  createBottomTabNavigator<BottomTabNavigatorParams>();
 
 export function AppRoutes() {
   return (
@@ -14,28 +17,27 @@ export function AppRoutes() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: theme.colors.secondary,
-        tabBarActiveBackgroundColor: theme.colors.shape,
+        tabBarActiveBackgroundColor: 'transparent',
         tabBarInactiveTintColor: theme.colors.text,
         tabBarHideOnKeyboard: true,
-        tabBarLabelPosition: 'beside-icon',
+        tabBarLabelPosition: 'below-icon',
         tabBarStyle: {
-          // borderRadius: 20,
-          overflow: 'hidden',
-          // position: 'absolute',
-          // bottom: 10,
-          // left: 20,
-          // right: 20,
-          backgroundColor: 'white',
-          height: 60,
+          justifyContent: 'center',
+          height: 65,
+        },
+        tabBarIconStyle: {
+          marginBottom: RFValue(12),
         },
         tabBarLabelStyle: {
-          marginLeft: 16,
+          fontSize: RFValue(10),
+          fontFamily: theme.fonts.medium,
+          marginTop: -20,
+          marginBottom: 7,
         },
       })}
     >
       <Screen
-        // name='Listagem'
-        name='Listagem'
+        name='List'
         component={Dashboard}
         options={{
           tabBarIcon: ({ color }) => (
@@ -48,20 +50,54 @@ export function AppRoutes() {
         }}
       />
       <Screen
-        name='Cadastrar'
+        name='Register'
         component={Register}
         options={{
+          tabBarLabelStyle: {
+            color: theme.colors.text,
+            alignItems: 'center',
+            justifyContent: 'center',
+            bottom: 6,
+            fontSize: RFValue(10),
+            position: 'absolute',
+          },
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? theme.colors.secondary : theme.colors.text,
+                alignItems: 'center',
+                justifyContent: 'center',
+                bottom: 2,
+                fontFamily: theme.fonts.medium,
+                fontSize: RFValue(10),
+                position: 'absolute',
+              }}
+            >
+              Cadastrar
+            </Text>
+          ),
+          tabBarActiveTintColor: '#000',
+          tabBarIconStyle: {
+            position: 'absolute',
+            top: -20,
+            width: 60,
+            height: 60,
+            borderRadius: 30,
+            backgroundColor: theme.colors.secondary,
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
           tabBarIcon: ({ color }) => (
             <Feather
               name='dollar-sign'
               size={20}
-              color={color}
+              color={theme.colors.shape}
             />
           ),
         }}
       />
       <Screen
-        name='Resumo'
+        name='Overview'
         component={Register}
         options={{
           tabBarIcon: ({ color }) => (

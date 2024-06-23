@@ -1,4 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import uuid from 'react-native-uuid';
+import { useNavigation } from '@react-navigation/native';
 
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -21,6 +23,8 @@ import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
 import { CategoryInterface } from '../../interfaces/category.interface';
 import CategorySelectModal from '../CategorySelectModal';
 import { styles } from './styles';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { BottomTabNavigatorParams } from '../../global/enums/navigation.type';
 
 interface FormData {
   name: string;
@@ -38,16 +42,26 @@ const schema = Yup.object().shape({
 });
 
 export default function Register() {
+  type HomeTabNavigationProp = BottomTabNavigationProp<
+    BottomTabNavigatorParams,
+    'List'
+  >;
   const collectionKey: string = '@gofinances:transactions';
   const [selectedTypeTransaction, setSelectedTypeTransaction] =
     useState<TransactionTypeEnum | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [category, setCategory] = useState<CategoryInterface | null>(null);
+  const navigation = useNavigation<HomeTabNavigationProp>();
+
+  const navigateToFeed = () => {
+    navigation.navigate('List');
+  };
 
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -88,26 +102,22 @@ export default function Register() {
       const currentData = dataStorage ? JSON.parse(dataStorage) : [];
       const dataFormatted = [
         {
+          id: String(uuid.v4()),
           ...newTransaction,
-          id: currentData.length + 1,
+          createdAt: new Date(),
         },
         ...currentData,
       ];
       await AsyncStorage.setItem(collectionKey, JSON.stringify(dataFormatted));
+      setSelectedTypeTransaction(null);
+      setCategory(null);
+      reset();
+      navigateToFeed();
     } catch (error) {
       console.log(error);
       Alert.alert('Não foi possível salvar!, tente novamente');
     }
   }
-
-  useEffect(() => {
-    async function loadData() {
-      const data = await AsyncStorage.getItem(collectionKey);
-      if (!data) return;
-      console.log(JSON.parse(data));
-    }
-    loadData();
-  });
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
