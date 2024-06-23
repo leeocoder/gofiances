@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import uuid from 'react-native-uuid';
 import { useNavigation } from '@react-navigation/native';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Alert,
@@ -25,6 +25,7 @@ import CategorySelectModal from '../CategorySelectModal';
 import { styles } from './styles';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { BottomTabNavigatorParams } from '../../global/enums/navigation.type';
+import { globalConfig } from '../../global/data/config';
 
 interface FormData {
   name: string;
@@ -46,7 +47,7 @@ export default function Register() {
     BottomTabNavigatorParams,
     'List'
   >;
-  const collectionKey: string = '@gofinances:transactions';
+  const collectionKey: string = globalConfig.collectionKey;
   const [selectedTypeTransaction, setSelectedTypeTransaction] =
     useState<TransactionTypeEnum | null>(null);
 
