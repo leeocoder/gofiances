@@ -7,6 +7,7 @@ import { theme } from '../global/styles/theme';
 import { Feather } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { BottomTabNavigatorParams } from '../global/enums/navigation.type';
+import Overview from '../screens/Overview';
 
 const { Navigator, Screen } =
   createBottomTabNavigator<BottomTabNavigatorParams>();
@@ -98,7 +99,7 @@ export function AppRoutes() {
       />
       <Screen
         name='Overview'
-        component={Register}
+        component={Overview}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather
