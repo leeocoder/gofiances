@@ -111,9 +111,9 @@ export default function Dashboard() {
     setIsLoading(false);
   }
 
-  useEffect(() => {
-    loadTransactions();
-  }, []);
+  // useEffect(() => {
+  //   loadTransactions();
+  // }, []);
 
   useFocusEffect(
     useCallback(() => {
