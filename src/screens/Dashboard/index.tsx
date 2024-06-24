@@ -17,15 +17,17 @@ import { styles } from './styles';
 import { transactionMapper } from '../../mappers/transaction.mapper';
 import { useFocusEffect } from '@react-navigation/native';
 import { convertToBRLFormat } from '../../global/helpers/convert-to-brl-format.helper';
+import { convertToDateFormat } from '../../global/helpers/convert-to-date.helper';
 
 export interface TransactionCardsList extends TransactionData {
   id: string;
+  createdAt: string;
 }
 
 export interface TransactionCardsData {
-  incomes: { amount: string };
-  expenses: { amount: string };
-  total: { amount: string };
+  incomes: { amount: string; lastTransaction: string };
+  expenses: { amount: string; lastTransaction: string };
+  total: { amount: string; lastTransaction: string };
 }
 
 export default function Dashboard() {
@@ -48,6 +50,32 @@ export default function Dashboard() {
     return expenseSum;
   }
 
+  function transactionIncomeDate(transaction: TransactionCardsList[]): string {
+    const newerDate = Math.max.apply(
+      Math,
+      transaction
+        .filter(
+          ({ transactionType }) =>
+            transactionType === TransactionTypeEnum.income
+        )
+        .map(({ createdAt }) => new Date(createdAt).getTime())
+    );
+    return convertToDateFormat(newerDate);
+  }
+
+  function transactionExpenseDate(transaction: TransactionCardsList[]): string {
+    const newerDate = Math.max.apply(
+      Math,
+      transaction
+        .filter(
+          ({ transactionType }) =>
+            transactionType === TransactionTypeEnum.outcome
+        )
+        .map(({ createdAt }) => new Date(createdAt).getTime())
+    );
+    return convertToDateFormat(newerDate);
+  }
+
   function calcEntries(data: TransactionCardsList[]): number {
     const entriesSum = data.reduce((accumulator, currentValue) => {
       if (currentValue.transactionType === TransactionTypeEnum.income) {
@@ -67,9 +95,18 @@ export default function Dashboard() {
     expenseSum = calcExpenses(currentData);
     setTransactions(mappedData);
     setTransactionSummary({
-      incomes: { amount: convertToBRLFormat(entriesSum) },
-      expenses: { amount: convertToBRLFormat(expenseSum) },
-      total: { amount: convertToBRLFormat(entriesSum - expenseSum) },
+      incomes: {
+        amount: convertToBRLFormat(entriesSum),
+        lastTransaction: transactionIncomeDate(currentData),
+      },
+      expenses: {
+        amount: convertToBRLFormat(expenseSum),
+        lastTransaction: transactionExpenseDate(currentData),
+      },
+      total: {
+        amount: convertToBRLFormat(entriesSum - expenseSum),
+        lastTransaction: transactionExpenseDate(currentData),
+      },
     });
     setIsLoading(false);
   }
@@ -130,19 +167,19 @@ export default function Dashboard() {
             <TransactionCard
               title='Entrada'
               amount={transactionSummary?.incomes.amount ?? '0'}
-              lastTransaction='Última entrada dia 13 de abril'
+              lastTransaction={`Última entrada dia ${transactionSummary?.incomes.lastTransaction}`}
               type={TransactionTypeEnum.income}
             />
             <TransactionCard
               title='Saídas'
               amount={transactionSummary?.expenses.amount ?? '0'}
-              lastTransaction='Última saída dia 03 de abril'
+              lastTransaction={`Última saída dia ${transactionSummary?.expenses.lastTransaction}`}
               type={TransactionTypeEnum.outcome}
             />
             <TransactionCard
               title='Total'
               amount={transactionSummary?.total.amount ?? '0'}
-              lastTransaction='01 à 16 de abril'
+              lastTransaction={`01 à ${transactionSummary?.total.lastTransaction}`}
               type={TransactionTypeEnum.total}
             />
           </ScrollView>
