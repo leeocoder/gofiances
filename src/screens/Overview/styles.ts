@@ -22,4 +22,24 @@ export const styles = StyleSheet.create({
     fontSize: RFValue(18),
     lineHeight: RFValue(24),
   },
+  monthSelect: {
+    width: '100%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: RFValue(24),
+    marginBottom: RFValue(16),
+  },
+  monthSelectLabel: {
+    color: theme.colors.title,
+    fontFamily: theme.fonts.bold,
+    fontSize: RFValue(16),
+    lineHeight: RFValue(20),
+  },
+  chartContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: RFValue(32),
+  },
 });
