@@ -8,11 +8,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 
 import { AppRoutes } from './src/routes/app.routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { theme } from './src/global/styles/theme';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -53,6 +54,10 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NavigationContainer>
+        <StatusBar
+          barStyle='light-content'
+          backgroundColor={theme.colors.primary}
+        />
         <AppRoutes />
       </NavigationContainer>
     </GestureHandlerRootView>

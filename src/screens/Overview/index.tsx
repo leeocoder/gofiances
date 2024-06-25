@@ -4,7 +4,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { useCallback, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 import { BorderlessButton, ScrollView } from 'react-native-gesture-handler';
 import { PieChart } from 'react-native-gifted-charts';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -19,7 +19,6 @@ import { TransactionTypeEnum } from '../../global/enums/TransactionTypeEnum';
 import { convertToBRLFormat } from '../../global/helpers/convert-to-brl-format.helper';
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
-import { convertToDateFormat } from '../../global/helpers/convert-to-date.helper';
 
 interface TransactionOverviewInterface {
   key: string;
@@ -45,6 +44,7 @@ interface ChartPropsInterface {
 
 export default function Overview() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [transactionsOverviewData, setTransactionsOverviewData] = useState<
     TransactionOverviewInterface[]
   >([]);
@@ -61,6 +61,7 @@ export default function Overview() {
   }
 
   async function loadData(): Promise<void> {
+    setIsLoading(true);
     const data = await AsyncStorage.getItem(globalConfig.collectionKey);
     const transactions: TransactionCardsOverviewList[] = data
       ? JSON.parse(data)
@@ -121,6 +122,7 @@ export default function Overview() {
     });
     setChartData(data);
     setTransactionsOverviewData(totalByCategory);
+    setIsLoading(false);
   }
 
   useFocusEffect(
@@ -134,58 +136,67 @@ export default function Overview() {
       <View style={styles.header}>
         <Text style={styles.title}>Resumo por categoria</Text>
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: useBottomTabBarHeight(),
-          paddingTop: RFValue(24),
+      {isLoading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator
+            size='large'
+            color={theme.colors.title}
+          />
+        </View>
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: useBottomTabBarHeight(),
+            paddingTop: RFValue(24),
 
-          flex: 1,
-          paddingHorizontal: RFValue(24),
-          rowGap: RFValue(8),
-        }}
-      >
-        <View style={styles.monthSelect}>
-          <BorderlessButton onPress={() => handleDateChange('prev')}>
-            <Feather
-              name='chevron-left'
-              size={24}
-              color={theme.colors.title}
+            flex: 1,
+            paddingHorizontal: RFValue(24),
+            rowGap: RFValue(8),
+          }}
+        >
+          <View style={styles.monthSelect}>
+            <BorderlessButton onPress={() => handleDateChange('prev')}>
+              <Feather
+                name='chevron-left'
+                size={24}
+                color={theme.colors.title}
+              />
+            </BorderlessButton>
+            <Text style={styles.monthSelectLabel}>
+              {new Intl.DateTimeFormat('pt-BR', {
+                month: 'long',
+                year: 'numeric',
+              }).format(new Date(selectedDate))}
+            </Text>
+            <BorderlessButton onPress={() => handleDateChange('next')}>
+              <Feather
+                name='chevron-right'
+                size={24}
+                color={theme.colors.title}
+              />
+            </BorderlessButton>
+          </View>
+          <View style={styles.chartContainer}>
+            <PieChart
+              data={chartData}
+              showText={true}
+              font={theme.fonts.medium}
+              textSize={RFValue(14)}
+              textColor={theme.colors.shape}
+              donut={true}
             />
-          </BorderlessButton>
-          <Text style={styles.monthSelectLabel}>
-            {new Intl.DateTimeFormat('pt-BR', {
-              month: 'long',
-              year: 'numeric',
-            }).format(new Date(selectedDate))}
-          </Text>
-          <BorderlessButton onPress={() => handleDateChange('next')}>
-            <Feather
-              name='chevron-right'
-              size={24}
-              color={theme.colors.title}
+          </View>
+          {transactionsOverviewData.map(({ title, amount, color }) => (
+            <HistoryCard
+              key={title}
+              title={title}
+              amount={amount}
+              color={color}
             />
-          </BorderlessButton>
-        </View>
-        <View style={styles.chartContainer}>
-          <PieChart
-            data={chartData}
-            showText={true}
-            font={theme.fonts.medium}
-            textSize={RFValue(14)}
-            textColor={theme.colors.shape}
-            donut={true}
-          />
-        </View>
-        {transactionsOverviewData.map(({ title, amount, color }) => (
-          <HistoryCard
-            key={title}
-            title={title}
-            amount={amount}
-            color={color}
-          />
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }
