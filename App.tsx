@@ -14,6 +14,7 @@ import 'react-native-gesture-handler';
 import { AppRoutes } from './src/routes/app.routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { theme } from './src/global/styles/theme';
+import SignIn from './src/screens/SignIn';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -58,7 +59,8 @@ export default function App() {
           barStyle='light-content'
           backgroundColor={theme.colors.primary}
         />
-        <AppRoutes />
+        {/* <AppRoutes /> */}
+        <SignIn />
       </NavigationContainer>
     </GestureHandlerRootView>
   );
