@@ -41,4 +41,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.colors.secondary,
   },
+  footerWrapper: {
+    width: '100%',
+    height: '100%',
+    padding: RFValue(24),
+    gap: RFValue(16),
+    marginTop: RFValue(-50),
+    paddingVertical: 0,
+    justifyContent: 'flex-start',
+  },
 });

@@ -4,6 +4,7 @@ import { styles } from './styles';
 import AppleSVG from '../../assets/icons/apple-icon.svg';
 import GoogleSVG from '../../assets/icons/google-icon.svg';
 import LogoSVG from '../../assets/icons/logo-full.svg';
+import SignInButton from '../../components/SignInButton';
 
 export default function SignIn() {
   return (
@@ -23,7 +24,18 @@ export default function SignIn() {
           Faça seu login com uma das contas abaixo
         </Text>
       </View>
-      <View style={styles.footer}></View>
+      <View style={styles.footer}>
+        <View style={styles.footerWrapper}>
+          <SignInButton
+            title='Entrar com o Google'
+            svg={GoogleSVG}
+          />
+          <SignInButton
+            title='Entrar com o Apple'
+            svg={AppleSVG}
+          />
+        </View>
+      </View>
     </View>
   );
 }
