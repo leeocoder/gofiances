@@ -12,9 +12,20 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.383985853214-r19d2v6m0p2p71ei2hdmm2hl0q3gi59e"
+            ]
+          }
+        ]
+      },
+      "bundleIdentifier": "com.gofinances.dev"
     },
     "android": {
+      "package": "com.gofinances.dev",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -24,7 +35,13 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.383985853214-r19d2v6m0p2p71ei2hdmm2hl0q3gi59e"
+        }
+      ]
     ]
   }
 }

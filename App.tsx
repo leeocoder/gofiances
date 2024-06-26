@@ -11,10 +11,22 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 
-import { AppRoutes } from './src/routes/app.routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { theme } from './src/global/styles/theme';
 import SignIn from './src/screens/SignIn';
+import { AuthProvider } from './src/hooks/auth';
+
+// import {
+//   GoogleSignin,
+//   GoogleSigninButton,
+//   statusCodes,
+// } from '@react-native-google-signin/google-signin';
+
+// GoogleSignin.configure({
+//   iosClientId: '',
+
+//   scopes: ['profile', 'email'],
+// });
 
 SplashScreen.preventAutoHideAsync();
 
@@ -60,7 +72,9 @@ export default function App() {
           backgroundColor={theme.colors.primary}
         />
         {/* <AppRoutes /> */}
-        <SignIn />
+        <AuthProvider>
+          <SignIn />
+        </AuthProvider>
       </NavigationContainer>
     </GestureHandlerRootView>
   );

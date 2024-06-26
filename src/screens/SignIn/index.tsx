@@ -1,12 +1,17 @@
 import { Text, View } from 'react-native';
+import { useContext } from 'react';
 
 import { styles } from './styles';
 import AppleSVG from '../../assets/icons/apple-icon.svg';
 import GoogleSVG from '../../assets/icons/google-icon.svg';
 import LogoSVG from '../../assets/icons/logo-full.svg';
 import SignInButton from '../../components/SignInButton';
+import { useAuth } from '../../hooks/auth';
 
 export default function SignIn() {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
